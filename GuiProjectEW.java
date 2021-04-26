@@ -1,26 +1,28 @@
 //Evan White
 
-        import javax.swing.*;
+    import javax.swing.*;
 	import java.util.Calendar;
 	import java.awt.*;
 	import java.awt.event.*;
 	import java.io.*;
 	
-public class GuiProjectEW extends JFrame implements ItemListener{
+public class GuiProjectEW extends JFrame implements ItemListener, ActionListener{
 	
 	private JPanel topPanel, leftPanel, midPanel, rightPanel, mainPanel;
 	private JCheckBox trainCB, clockCB, bikeCB, carCB;
 	private JTextField topText, midText, leftText, rightText;
-
+	private ImageIcon trivaPic = new ImageIcon("Image.jpg");
+	private JButton button;
+	private JLabel label;
+	private String labelMessage = "Change Picture?";
 	
 //---------------------------------------------------------
 public static void main(String[] args) {
 		
 		JFrame frame = new GuiProjectEW();
-		frame.setPreferredSize(new Dimension(500, 400));
+		frame.setPreferredSize(new Dimension(700, 600));
 		frame.pack();
 		frame.setVisible(true);
-		
 		
 		WindowListener w = new WindowAdapter()
 		{
@@ -29,9 +31,7 @@ public static void main(String[] args) {
 				System.exit(0);
 			}
 		};
-
 		frame.addWindowListener(w);
-		
 	}
 
 //---------------------------------------------------------
@@ -42,7 +42,7 @@ public static void main(String[] args) {
 	
     topPanel = new JPanel();
     topPanel.setLayout(new GridLayout(1,1));
-    topPanel.setPreferredSize(new Dimension(300,100));
+    topPanel.setPreferredSize(new Dimension(300,400));
     topPanel.setBorder(BorderFactory.createMatteBorder
                         (20, 20, 20, 20, Color.gray));
 
@@ -53,7 +53,7 @@ public static void main(String[] args) {
 	                    (20, 20, 20, 0, Color.gray));
 	                    
 	midPanel = new JPanel();
-	midPanel.setLayout(new GridLayout(1,1));
+	midPanel.setLayout(new GridLayout(5,1));
 	midPanel.setPreferredSize(new Dimension(200,100));
 	midPanel.setBorder(BorderFactory.createMatteBorder
 	                    (20, 20, 20, 20, Color.gray));
@@ -66,102 +66,52 @@ public static void main(String[] args) {
 	
 	mainPanel = new JPanel();
 	mainPanel.setLayout(new BorderLayout());
-	mainPanel.setPreferredSize(new Dimension(500,400));
+	mainPanel.setPreferredSize(new Dimension(700,600));
 	
 	
-     topText = new JTextField("a;sldkfja");
+     topText = new JTextField("Pic:");
         topPanel.add(topText);
-    
-	 leftText = new JTextField("Pepper poops");
-        leftPanel.add(leftText);
 
-    rightText = new JTextField("Hello");
+    rightText = new JTextField("Submit?");
         rightPanel.add(rightText);
-    
+//=====
+    midText = new JTextField("Which One Is Featured?");
+        midPanel.add(midText);
+        
     trainCB = new JCheckBox("Train", false);
     clockCB = new JCheckBox("Clock", false);
     bikeCB = new JCheckBox("Bike", false);
     carCB = new JCheckBox("Car", false);
-
+   
+    trainCB.addItemListener(this);
+    clockCB.addItemListener(this);
+    bikeCB.addItemListener(this);
+    carCB.addItemListener(this);
+    
     midPanel.add(trainCB);
     midPanel.add(clockCB);
     midPanel.add(bikeCB);
     midPanel.add(carCB);
-
-    trainCB.addItemListener(This);
-    clockCB.addItemListener(This);
-    bikeCB.addItemListener(This);
-    carCB.addItemListener(This);
-
+//=====
+    
+    button = new JButton("Change Picture?");
+	label = new JLabel (labelMessage + "0 ");
+	leftPanel.add(button);
+	  
     mainPanel.add(topPanel, BorderLayout.NORTH);
     mainPanel.add(leftPanel, BorderLayout.WEST);
 	mainPanel.add(midPanel, BorderLayout.CENTER);
 	mainPanel.add(rightPanel, BorderLayout.EAST);
     
     setContentPane(mainPanel);
+	button.addActionListener(this);
   }
      
    //---------------------------------------------------------
-     public void itemStateChange(ItemChange ic)
- 	{
-         
-        if(ic.getItemSelectable() == trainCB)
-		{
-			if (ic.getStateChange() == ItemChange.DESELECTED)
-			{
-				train = "";
-				lookFor = train + clock + bike + car;
-				dietField2.setText(lookFor);
-			//	dietField2.setText(wwCB.getLabel() + " has been deselected.");
-
-			}
-			else
-			{
-				ww = "Weight Watchers ";
-				diets = ww + sb + adkins;
-				dietField2.setText(diets);
-			//	dietField2.setText(wwCB.getLabel());
-			}
-		}
-
-      if(ie.getItemSelectable() == sbCB)
-		{
-			if (ie.getStateChange() == ItemEvent.DESELECTED)
-			{
-				sb = "";
-				diets = ww + sb + adkins;
-				dietField2.setText(diets);
-				//dietField2.setText(sbCB.getLabel() + " has been deselected.");
-			}
-			else
-			{
-				sb = "South Beach ";
-				diets = ww + sb + adkins;
-				dietField2.setText(diets);
-			    //dietField2.setText(sbCB.getLabel());
-			}
-		}
-
-		if(ie.getItemSelectable() == adkinsCB)
-		{
-			if (ie.getStateChange() == ItemEvent.DESELECTED)
-			{
-				adkins = "";
-				diets = ww + sb + adkins;
-				dietField2.setText(diets);
-				//dietField2.setText(adkinsCB.getLabel() + " has been deselected.");
-			}
-			else
-			{
-				adkins = "Adkins ";
-				diets = ww + sb + adkins;
-				dietField2.setText(diets);
-				//dietField2.setText(adkinsCB.getLabel());
-			}
-		}	
+    
 
  		
- 	}
+ 	
 
 
 
