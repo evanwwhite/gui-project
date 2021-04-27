@@ -1,6 +1,6 @@
 //Evan White
 
-    import javax.swing.*;
+        import javax.swing.*;
 	import java.util.Calendar;
 	import java.awt.*;
 	import java.awt.event.*;
@@ -11,10 +11,13 @@ public class GuiProjectEW extends JFrame implements ItemListener, ActionListener
 	private JPanel topPanel, leftPanel, midPanel, rightPanel, mainPanel;
 	private JCheckBox trainCB, clockCB, bikeCB, carCB;
 	private JTextField topText, midText, leftText, rightText;
-	private ImageIcon trivaPic = new ImageIcon("Image.jpg");
-	private JButton button;
-	private JLabel label;
-	private String labelMessage = "Change Picture?";
+    private ImageIcon triviaPic1 = new ImageIcon("Desert5.jpg");
+    private ImageIcon triviaPic2 = new ImageIcon("OnePunch.jpg");
+    private ImageIcon triviaPic3 = new ImageIcon("DarkNut.jpg");
+    private JButton leftButton, rightButton, picButton;
+    private String labelMessage = "Change Picture?";
+    private int counter = 1;
+    private ImageIcon[] triviaPics = {triviaPic1, triviaPic2, triviaPic3};
 	
 //---------------------------------------------------------
 public static void main(String[] args) {
@@ -68,14 +71,11 @@ public static void main(String[] args) {
 	mainPanel.setLayout(new BorderLayout());
 	mainPanel.setPreferredSize(new Dimension(700,600));
 	
-	
-     topText = new JTextField("Pic:");
-        topPanel.add(topText);
+        picButton = new JButton(triviaPics[0]);
+        topPanel.add(picButton);
 
-    rightText = new JTextField("Submit?");
-        rightPanel.add(rightText);
 //=====
-    midText = new JTextField("Which One Is Featured?");
+    midText = new JTextField("Which One(s) is/are Featured?");
         midPanel.add(midText);
         
     trainCB = new JCheckBox("Train", false);
@@ -94,9 +94,13 @@ public static void main(String[] args) {
     midPanel.add(carCB);
 //=====
     
-    button = new JButton("Change Picture?");
-	label = new JLabel (labelMessage + "0 ");
-	leftPanel.add(button);
+    leftButton = new JButton("Change Picture?");
+    leftButton.addActionListener(this);
+    leftPanel.add(leftButton);
+    
+    rightButton = new JButton("Submit?");
+    rightButton.addActionListener(this);
+    rightPanel.add(rightButton);
 	  
     mainPanel.add(topPanel, BorderLayout.NORTH);
     mainPanel.add(leftPanel, BorderLayout.WEST);
@@ -104,17 +108,25 @@ public static void main(String[] args) {
 	mainPanel.add(rightPanel, BorderLayout.EAST);
     
     setContentPane(mainPanel);
-	button.addActionListener(this);
+	
   }
      
    //---------------------------------------------------------
-    
-
- 		
- 	
-
-
-
+  public void actionPerformed(ActionEvent e)
+  
+  {        	
+       if(e.getSource() == rightButton) {
+            System.exit(0);
+      }
+      else if(e.getSource() == leftButton){
+          picButton.setIcon(triviaPics[counter]);
+          counter++;
+          counter = counter%triviaPics.length;
+      }
+  }
+  public void itemStateChanged(ItemEvent ie){
+    System.out.println("R");
+    }
 
 }
 
